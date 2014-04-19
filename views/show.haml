@@ -1,0 +1,6 @@
+%h1
+  = phone.number
+
+%ul.images
+- phone.images.each do |image|
+  %img{src: image.url}
