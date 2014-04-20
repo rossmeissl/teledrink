@@ -32,6 +32,11 @@ if settings.production?
   end
 end
 
+before do
+  puts '[PARAMS]'
+  p params
+end
+
 post '/inbound_email' do
   email = Email.first_or_create(address: params['Sender'])
   attachments = JSON.parse(params['attachments'])
