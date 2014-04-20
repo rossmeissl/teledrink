@@ -46,7 +46,7 @@ post '/inbound_text' do
   xml
 end
 
-get '/:number' do |number|
+get /([\d]+)/ do |number|
   phone = Phone.first number: number
   haml :show, locals: { phone: phone }
 end
