@@ -42,7 +42,7 @@ post '/inbound_email' do
   puts '[EMAIL]'
   p email
   attachments = JSON.parse(params['attachments'])
-  puts '[ATTACHMENTS']
+  puts '[ATTACHMENTS]'
   p attachments
   attachments.each do |attachment|
     puts '[ATTACHMENT]'
