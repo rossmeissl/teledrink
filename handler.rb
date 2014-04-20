@@ -1,21 +1,22 @@
 require 'sinatra'
 require 'data_mapper'
 require 'haml'
+require 'json'
 
 DataMapper.setup(:default, ENV['DATABASE_URL'] || 'postgres://localhost/teledrink')
 
-class Phone
+class Email
   include DataMapper::Resource
 
   has n, :images
 
-  property :number, Integer, key: true
+  property :address, String, key: true
 end
 
 class Image
   include DataMapper::Resource
 
-  belongs_to :phone
+  belongs_to :email
 
   property :id, Serial
   property :url, Text
@@ -31,27 +32,24 @@ if settings.production?
   end
 end
 
-post '/inbound_text' do
-  phone = Phone.first_or_create number: params['From'].gsub(/[^\d]/, '').gsub(/\A1/, '')
-  if params['NumMedia'].to_i > 0
-    (0...params['NumMedia'].to_i).each do |num|
-      image = Image.create url: params["MediaUrl#{num}"], phone: phone
-    end
+post '/inbound_email' do
+  email = Email.first_or_create address: params['Sender']
+  attachments = JSON.parse(params['attachments'])
+  attachments.each do |attachment|
+    image = Image.create url: attachment['url'], email: email
   end
-  content_type 'text/xml'
-  <<-xml
-    <?xml version="1.0" encoding="UTF-8"?>
-    <Response>
-    </Response>
-  xml
+  200
 end
 
-get /([\d]+)/ do |number|
-  phone = Phone.first number: number
-  haml :show, locals: { phone: phone }
+get /(.+)/ do |address|
+  if email = Email.first address: address
+    haml :show, locals: { email: email }
+  else
+    404
+  end
 end
 
 get '/' do
-  phones = Phone.all
-  haml :index, locals: { phones: phones }
+  emails = Email.all
+  haml :index, locals: { emails: emails }
 end

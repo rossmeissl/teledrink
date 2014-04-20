@@ -1,6 +1,6 @@
 %h1 Teledrink
-%ul.phones
-- phones.each do |phone|
+%ul.emails
+- emails.each do |email|
   %li
-    %a{href: phone.number}
-      = phone.number
+    %a{href: email.address}
+      = email.address
