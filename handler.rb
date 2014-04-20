@@ -46,7 +46,7 @@ post '/inbound_email' do
   200
 end
 
-get /(.+)/ do |address|
+get /\/(.+)/ do |address|
   if email = Email.first(address: address)
     haml :show, locals: { email: email }
   else
