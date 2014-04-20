@@ -38,10 +38,18 @@ before do
 end
 
 post '/inbound_email' do
-  email = Email.first_or_create(address: params['Sender'])
+  email = Email.first_or_create(address: params['sender'])
+  puts '[EMAIL]'
+  p email
   attachments = JSON.parse(params['attachments'])
+  puts '[ATTACHMENTS']
+  p attachments
   attachments.each do |attachment|
+    puts '[ATTACHMENT]'
+    p attachment
     image = Image.create url: attachment['url'], email: email
+    puts '[IMAGE]'
+    p image
   end
   200
 end
