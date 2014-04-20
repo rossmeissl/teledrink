@@ -33,7 +33,7 @@ if settings.production?
 end
 
 post '/inbound_email' do
-  email = Email.first_or_create address: params['Sender']
+  email = Email.first_or_create(address: params['Sender'])
   attachments = JSON.parse(params['attachments'])
   attachments.each do |attachment|
     image = Image.create url: attachment['url'], email: email
@@ -42,7 +42,7 @@ post '/inbound_email' do
 end
 
 get /(.+)/ do |address|
-  if email = Email.first address: address
+  if email = Email.first(address: address)
     haml :show, locals: { email: email }
   else
     404
