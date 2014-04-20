@@ -28,7 +28,7 @@ DataMapper.auto_upgrade!
 
 if settings.production?
   use Rack::Auth::Basic, "Teledrink" do |username, password|
-    username == 'gin' and password == 'tonic'
+    username == 'teledrink' and password == ENV['AUTH']
   end
 end
 
