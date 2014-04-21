@@ -48,6 +48,7 @@ ul.emails li.email a header {
 
 ul.emails li.email a header h2 {
   font-size: 15px;
+  margin: 0;
 }
 
 ul.emails li.email a header .count {
