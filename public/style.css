@@ -67,6 +67,7 @@ ul.emails li.email a ul.images {
 
 ul.images li {
   background-size: cover;
+  background-position: center center;
   border: 1px solid #eee;
   border-radius: 2px;
   float: left;
