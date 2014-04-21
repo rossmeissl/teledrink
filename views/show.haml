@@ -1,6 +1,9 @@
 %h1
+  %a{href: url('/')}<
+    Teledrink
+  &middot;
   = email.address
 
 %ul.images
-- email.images.each do |image|
-  %img{src: image.url}
+  - email.images.each do |image|
+    %li.image{ style: "background-image: url(#{ auth(image.url) })" }

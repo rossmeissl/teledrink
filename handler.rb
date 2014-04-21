@@ -11,6 +11,7 @@ class Email
   has n, :images
 
   property :address, String, key: true
+  property :updated_at, DateTime
 end
 
 class Image
@@ -32,24 +33,18 @@ if settings.production?
   end
 end
 
-before do
-  puts '[PARAMS]'
-  p params
+helpers do
+  def auth(url)
+    url.gsub /https:\/\/api\.mailgun\.net/, "https://api:#{ENV['MAILGUN']}@api.mailgun.net"
+  end
 end
 
 post '/inbound_email' do
   email = Email.first_or_create(address: params['sender'])
-  puts '[EMAIL]'
-  p email
   attachments = JSON.parse(params['attachments'])
-  puts '[ATTACHMENTS]'
-  p attachments
   attachments.each do |attachment|
-    puts '[ATTACHMENT]'
-    p attachment
     image = Image.create url: attachment['url'], email: email
-    puts '[IMAGE]'
-    p image
+    email.touch
   end
   200
 end
@@ -63,6 +58,6 @@ get /\/(.+)/ do |address|
 end
 
 get '/' do
-  emails = Email.all
+  emails = Email.all(order: [:updated_at.asc])
   haml :index, locals: { emails: emails }
 end

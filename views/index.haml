@@ -1,6 +1,13 @@
 %h1 Teledrink
 %ul.emails
-- emails.each do |email|
-  %li
-    %a{href: email.address}
-      = email.address
+  - emails.each do |email|
+    %li.email
+      %a{href: email.address}
+        %header
+          %h2.address
+            = email.address
+          .count
+            = "#{email.images.count} images"
+        %ul.images
+          - email.images.each do |image|
+            %li.image{ style: "background-image: url(#{ auth(image.url) })" }

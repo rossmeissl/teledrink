@@ -1,0 +1,85 @@
+body {
+  font-family: 'Andika', sans-serif;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+
+h1 {
+  font-size: 14px;
+  padding: 1em 0;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 1em;
+}
+
+h1 a {
+  color: blue;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+ul.emails {
+  list-style: none;
+  padding: 0;
+}
+
+ul.emails li.email {
+  background: #f9f9f9;
+  border: 1px #ddd solid;
+  border-radius: 2px;
+  margin: 0 0 1em;
+}
+
+ul.emails li.email a {
+  padding: 1em;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+ul.emails li.email a header {
+  float: left; width: 10em;
+}
+
+ul.emails li.email a header h2 {
+  font-size: 15px;
+}
+
+ul.emails li.email a header .count {
+  color: gray;
+  font-size: 13px;
+}
+
+ul.images {
+  list-style: none;
+  padding: 0;  
+  overflow: auto;
+}
+
+ul.emails li.email a ul.images {
+  margin: 0 0 0 12em;
+}
+
+ul.images li {
+  background-size: cover;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  float: left;
+  margin: 0 1em 1em 0;
+}
+
+ul.emails li.email a ul.images li {
+  height: 3em;
+  width: 3em;
+}
+
+main>ul.images li {
+  height: calc((900px - 3em - 6px) / 3);
+  width: calc((900px - 3em - 6px) / 3);
+  box-shadow: 6px 6px 8px rgba(0,0,0,0.04);
+}
