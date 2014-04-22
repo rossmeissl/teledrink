@@ -8,6 +8,3 @@
             = email.address
           .count
             = "#{email.images.count} images"
-        %ul.images
-          - email.images.each do |image|
-            %li.image{ style: "background-image: url(#{ auth(image.url) })" }
